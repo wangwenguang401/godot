@@ -45,7 +45,7 @@ int TabContainer::_get_top_margin() const {
 	int ch = font->get_height();;
 	for(int i=0;i<get_child_count();i++) {
 
-		Control *c = get_child(i)->cast_to<Control>();
+		Control *c = Object::cast_to<Control>(get_child(i));
 		if (!c)
 			continue;
 		if (c->is_set_as_toplevel())
@@ -112,7 +112,7 @@ void TabContainer::_input_event(const InputEvent& p_event) {
 
 		for(int i=0;i<get_child_count();i++) {
 
-			Control *c = get_child(i)->cast_to<Control>();
+			Control *c = Object::cast_to<Control>(get_child(i));
 			if (!c)
 				continue;
 			if (c->is_set_as_toplevel())
@@ -243,7 +243,7 @@ void TabContainer::_notification(int p_what) {
 
 			for(int i=0;i<get_child_count();i++) {
 
-				Control *c = get_child(i)->cast_to<Control>();
+				Control *c = Object::cast_to<Control>(get_child(i));
 				if (!c)
 					continue;
 				if (c->is_set_as_toplevel())
@@ -422,7 +422,7 @@ void TabContainer::_child_renamed_callback() {
 void TabContainer::add_child_notify(Node *p_child) {
 
 
-	Control *c = p_child->cast_to<Control>();
+	Control *c = Object::cast_to<Control>(p_child);
 	if (!c)
 		return;
 	if (c->is_set_as_toplevel())
@@ -458,7 +458,7 @@ int TabContainer::get_tab_count() const {
 
 	for(int i=0;i<get_child_count();i++) {
 
-		Control *c = get_child(i)->cast_to<Control>();
+		Control *c = Object::cast_to<Control>(get_child(i));
 		if (!c)
 			continue;
 		count++;
@@ -480,7 +480,7 @@ void TabContainer::set_current_tab(int p_current) {
 	Ref<StyleBox> sb=get_stylebox("panel");
 	for(int i=0;i<get_child_count();i++) {
 
-		Control *c = get_child(i)->cast_to<Control>();
+		Control *c = Object::cast_to<Control>(get_child(i));
 		if (!c)
 			continue;
 		if (c->is_set_as_toplevel())
@@ -516,7 +516,7 @@ Control* TabContainer::get_tab_control(int p_idx) const {
 
 	for(int i=0;i<get_child_count();i++) {
 
-		Control *c = get_child(i)->cast_to<Control>();
+		Control *c = Object::cast_to<Control>(get_child(i));
 		if (!c)
 			continue;
 		if (c->is_set_as_toplevel())
@@ -537,7 +537,7 @@ Control* TabContainer::get_current_tab_control() const {
 
 	for(int i=0;i<get_child_count();i++) {
 
-		Control *c = get_child(i)->cast_to<Control>();
+		Control *c = Object::cast_to<Control>(get_child(i));
 		if (!c)
 			continue;
 		if (c->is_set_as_toplevel())
@@ -592,7 +592,7 @@ void TabContainer::set_tabs_visible(bool p_visibe) {
 
 	for(int i=0;i<get_child_count();i++) {
 
-		Control *c = get_child(i)->cast_to<Control>();
+		Control *c = Object::cast_to<Control>(get_child(i));
 		if (!c)
 			continue;
 		if (p_visibe)
@@ -617,7 +617,7 @@ Control *TabContainer::_get_tab(int p_idx) const {
 
 	for(int i=0;i<get_child_count();i++) {
 
-		Control *c = get_child(i)->cast_to<Control>();
+		Control *c = Object::cast_to<Control>(get_child(i));
 		if (!c)
 			continue;
 		if (c->is_set_as_toplevel())
@@ -671,7 +671,7 @@ void TabContainer::get_translatable_strings(List<String> *p_strings) const {
 
 	for(int i=0;i<get_child_count();i++) {
 
-		Control *c = get_child(i)->cast_to<Control>();
+		Control *c = Object::cast_to<Control>(get_child(i));
 		if (!c)
 			continue;
 		if (c->is_set_as_toplevel())
@@ -694,7 +694,7 @@ Size2 TabContainer::get_minimum_size() const {
 
 	for(int i=0;i<get_child_count();i++) {
 
-		Control *c = get_child(i)->cast_to<Control>();
+		Control *c = Object::cast_to<Control>(get_child(i));
 		if (!c)
 			continue;
 		if (c->is_set_as_toplevel())
@@ -723,7 +723,7 @@ Size2 TabContainer::get_minimum_size() const {
 
 void TabContainer::set_popup(Node *p_popup) {
 	ERR_FAIL_NULL(p_popup);
-	popup=p_popup->cast_to<Popup>();
+	popup=Object::cast_to<Popup>(p_popup);
 	update();
 }
 

@@ -492,31 +492,31 @@ public:
 	void add_change_receptor( Object *p_receptor );
 	void remove_change_receptor( Object *p_receptor );
 
-	template<class T>
-	T *cast_to() {
+	template<class T, class OldT>
+	static T *cast_to(OldT *ptr) {
 
 #ifndef NO_SAFE_CAST
-		return SAFE_CAST<T*>(this);
+		return SAFE_CAST<T*>(ptr);
 #else
-		if (!this)
+		if (!ptr)
 			return NULL;
 		if (is_type_ptr(T::get_type_ptr_static()))
-			return static_cast<T*>(this);
+			return static_cast<T*>(ptr);
 		else
 			return NULL;
 #endif
 	}
 
-	template<class T>
-	const T *cast_to() const {
+	template<class T, class OldT>
+	static const T *cast_to(const OldT *ptr) {
 
 #ifndef NO_SAFE_CAST
-		return SAFE_CAST<const T*>(this);
+		return SAFE_CAST<const T*>(ptr);
 #else
-		if (!this)
+		if (!ptr)
 			return NULL;
 		if (is_type_ptr(T::get_type_ptr_static()))
-			return static_cast<const T*>(this);
+			return static_cast<T*>(ptr);
 		else
 			return NULL;
 #endif

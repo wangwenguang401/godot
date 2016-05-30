@@ -102,7 +102,7 @@ CameraEditor::CameraEditor() {
 
 void CameraEditorPlugin::edit(Object *p_object) {
 
-	SpatialEditor::get_singleton()->set_can_preview(p_object->cast_to<Camera>());
+	SpatialEditor::get_singleton()->set_can_preview(Object::cast_to<Camera>(p_object));
 	//camera_editor->edit(p_object->cast_to<Node>());
 }
 
