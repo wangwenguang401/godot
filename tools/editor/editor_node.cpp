@@ -3165,8 +3165,8 @@ void EditorNode::set_edited_scene(Node *p_scene) {
 	}
 	get_editor_data().set_edited_scene_root(p_scene);
 
-	if (p_scene && Object::cast_to<Popup>(p_scene))
-		Object::cast_to<Popup>(p_scene)->show(); //show popups
+	if (Popup *p = Object::cast_to<Popup>(p_scene))
+		p->show(); //show popups
 	scene_tree_dock->set_edited_scene(p_scene);
 	if (get_tree())
 		get_tree()->set_edited_scene_root(p_scene);
@@ -3539,8 +3539,8 @@ void EditorNode::set_current_scene(int p_idx) {
 
 	Node* new_scene = editor_data.get_edited_scene_root();
 
-	if (new_scene && Object::cast_to<Popup>(new_scene))
-		Object::cast_to<Popup>(new_scene)->show(); //show popups
+	if (Popup *p = Object::cast_to<Popup>(new_scene))
+		p->show(); //show popups
 
 	//print_line("set current 3 ");
 
@@ -3825,7 +3825,7 @@ void EditorNode::update_keying() {
 		if (editor_history.get_path_size()>=1) {
 
 			Object *obj = ObjectDB::get_instance(editor_history.get_path_object(0));
-			if (obj && Object::cast_to<Node>(obj)) {
+			if (Object::cast_to<Node>(obj)) {
 
 				valid=true;
 			}

@@ -320,8 +320,8 @@ MeshLibraryEditor::MeshLibraryEditor(EditorNode *p_editor) {
 
 void MeshLibraryEditorPlugin::edit(Object *p_node) {
 
-	if (p_node && Object::cast_to<MeshLibrary>(p_node)) {
-		theme_editor->edit( Object::cast_to<MeshLibrary>(p_node) );
+	if (MeshLibrary *ml = Object::cast_to<MeshLibrary>(p_node)) {
+		theme_editor->edit(ml);
 		theme_editor->show();
 	} else
 		theme_editor->hide();

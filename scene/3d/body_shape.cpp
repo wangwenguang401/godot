@@ -47,8 +47,8 @@ void CollisionShape::_update_body() {
 		return;
 	if (!get_tree()->is_editor_hint())
 		return;
-	if (get_parent() && Object::cast_to<CollisionObject>(get_parent()))
-		Object::cast_to<CollisionObject>(get_parent())->_update_shapes_from_children();
+	if (CollisionObject *co = Object::cast_to<CollisionObject>(get_parent()))
+		co->_update_shapes_from_children();
 
 }
 

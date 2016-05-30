@@ -259,8 +259,8 @@ TileSetEditor::TileSetEditor(EditorNode *p_editor) {
 
 void TileSetEditorPlugin::edit(Object *p_node) {
 
-	if (p_node && Object::cast_to<TileSet>(p_node)) {
-		tileset_editor->edit( Object::cast_to<TileSet>(p_node) );
+	if (TileSet *ts = Object::cast_to<TileSet>(p_node)) {
+		tileset_editor->edit(ts);
 		tileset_editor->show();
 	} else
 		tileset_editor->hide();

@@ -2368,7 +2368,7 @@ void SpatialEditorViewport::set_state(const Dictionary& p_state) {
 
 	if (p_state.has("previewing")) {
 		Node *pv = EditorNode::get_singleton()->get_edited_scene()->get_node(p_state["previewing"]);
-		if (pv && Object::cast_to<Camera>(pv)) {
+		if (Object::cast_to<Camera>(pv)) {
 			previewing=Object::cast_to<Camera>(pv);
 			previewing->connect("exit_tree",this,"_preview_exited_scene");
 			VS::get_singleton()->viewport_attach_camera( viewport->get_viewport(), previewing->get_camera() ); //replace

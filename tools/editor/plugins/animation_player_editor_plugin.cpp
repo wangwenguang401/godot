@@ -666,7 +666,7 @@ void AnimationPlayerEditor::set_state(const Dictionary& p_state) {
 			return;
 
 		Node *n = EditorNode::get_singleton()->get_edited_scene()->get_node(p_state["player"]);
-		if (n && Object::cast_to<AnimationPlayer>(n)) {
+		if (Object::cast_to<AnimationPlayer>(n)) {
 			player=Object::cast_to<AnimationPlayer>(n);
 			_update_player();
 			show();

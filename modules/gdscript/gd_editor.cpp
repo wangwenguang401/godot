@@ -640,7 +640,7 @@ static bool _guess_expression_type(GDCompletionContext& context,const GDParser::
 
 					if (id.operator String()=="new" && base.value.get_type()==Variant::OBJECT) {
 						Object *obj = base.value;
-						if (obj && Object::cast_to<GDNativeClass>(obj)) {
+						if (Object::cast_to<GDNativeClass>(obj)) {
 							GDNativeClass *gdnc = Object::cast_to<GDNativeClass>(obj);
 							r_type.type=Variant::OBJECT;
 							r_type.value=Variant();

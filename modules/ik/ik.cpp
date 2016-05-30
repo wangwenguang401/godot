@@ -83,7 +83,7 @@ void InverseKinematics::_get_property_list( List<PropertyInfo>* p_list ) const
 void InverseKinematics::_check_bind()
 {
 
-	if (get_parent() && Object::cast_to<Skeleton>(get_parent())) {
+	if (Object::cast_to<Skeleton>(get_parent())) {
 		Skeleton *sk = Object::cast_to<Skeleton>(get_parent());
 		int idx = sk->find_bone(ik_bone);
 		if (idx!=-1) {
@@ -99,7 +99,7 @@ void InverseKinematics::_check_unbind()
 
 	if (bound) {
 
-		if (get_parent() && Object::cast_to<Skeleton>(get_parent())) {
+		if (Object::cast_to<Skeleton>(get_parent())) {
 			Skeleton *sk = Object::cast_to<Skeleton>(get_parent());
 			int idx = sk->find_bone(ik_bone);
 			if (idx!=-1)

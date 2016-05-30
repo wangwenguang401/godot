@@ -294,7 +294,7 @@ void GraphEdit::_top_layer_input(const InputEvent& p_ev) {
 							if (E->get().to==gn->get_name() && E->get().to_port==j) {
 
 								Node*fr = get_node(String(E->get().from));
-								if (fr && Object::cast_to<GraphNode>(fr)) {
+								if (Object::cast_to<GraphNode>(fr)) {
 
 									connecting_from=E->get().from;
 									connecting_index=E->get().from_port;
@@ -306,7 +306,7 @@ void GraphEdit::_top_layer_input(const InputEvent& p_ev) {
 
 									emit_signal("disconnection_request",E->get().from,E->get().from_port,E->get().to,E->get().to_port);
 									fr = get_node(String(connecting_from)); //maybe it was erased
-									if (fr && Object::cast_to<GraphNode>(fr)) {
+									if (Object::cast_to<GraphNode>(fr)) {
 										connecting=true;
 									}
 									return;
