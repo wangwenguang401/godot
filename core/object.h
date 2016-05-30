@@ -500,7 +500,7 @@ public:
 #else
 		if (!ptr)
 			return NULL;
-		if (is_type_ptr(T::get_type_ptr_static()))
+		if (ptr->is_type_ptr(T::get_type_ptr_static()))
 			return static_cast<T*>(ptr);
 		else
 			return NULL;
@@ -515,8 +515,8 @@ public:
 #else
 		if (!ptr)
 			return NULL;
-		if (is_type_ptr(T::get_type_ptr_static()))
-			return static_cast<T*>(ptr);
+		if (ptr->is_type_ptr(T::get_type_ptr_static()))
+			return static_cast<const T*>(ptr);
 		else
 			return NULL;
 #endif
