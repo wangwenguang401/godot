@@ -1231,8 +1231,7 @@ void CanvasItemEditor::_viewport_input_event(const InputEvent& p_event) {
 							Variant state=canvas_item->edit_get_state();
 							undo_redo->add_do_method(canvas_item,"edit_set_state",state);
 							undo_redo->add_undo_method(canvas_item,"edit_set_state",se->undo_state);
-							if (Object::cast_to<Node2D>(canvas_item)) {
-								Node2D *pvt = Object::cast_to<Node2D>(canvas_item);
+							if (Node2D *pvt = Object::cast_to<Node2D>(canvas_item)) {
 								if (pvt->edit_has_pivot()) {
 									undo_redo->add_do_method(canvas_item,"edit_set_pivot",pvt->edit_get_pivot());
 									undo_redo->add_undo_method(canvas_item,"edit_set_pivot",se->undo_pivot);
@@ -1676,8 +1675,7 @@ void CanvasItemEditor::_viewport_input_event(const InputEvent& p_event) {
 				} break;
 				case DRAG_PIVOT: {
 
-					if (Object::cast_to<Node2D>(canvas_item)) {
-						Node2D *n2d =Object::cast_to<Node2D>(canvas_item);
+					if (Node2D *n2d =Object::cast_to<Node2D>(canvas_item)) {
 						n2d->edit_set_pivot(se->undo_pivot+drag_vector);
 
 					}
@@ -1967,10 +1965,10 @@ void CanvasItemEditor::_viewport_draw() {
 
 		if (single && (tool==TOOL_SELECT || tool == TOOL_MOVE || tool == TOOL_ROTATE || tool==TOOL_EDIT_PIVOT)) { //kind of sucks
 
-			if (Object::cast_to<Node2D>(canvas_item)) {
+			if (Node2D *n2d = Object::cast_to<Node2D>(canvas_item)) {
 
 
-				if (Object::cast_to<Node2D>(canvas_item)->edit_has_pivot()) {
+				if (n2d->edit_has_pivot()) {
 					viewport->draw_texture(pivot,xform.get_origin()+(-pivot->get_size()/2).floor());
 					can_move_pivot=true;
 					pivot_found=true;
@@ -2765,8 +2763,7 @@ void CanvasItemEditor::_popup_callback(int p_op) {
 				if (canvas_item->get_viewport()!=EditorNode::get_singleton()->get_scene_root())
 					continue;
 
-				if (Object::cast_to<Node2D>(canvas_item)) {
-					Node2D *n2d = Object::cast_to<Node2D>(canvas_item);
+				if (Node2D *n2d = Object::cast_to<Node2D>(canvas_item)) {
 
 					if (key_pos)
 						AnimationPlayerEditor::singleton->get_key_editor()->insert_node_value_key(n2d,"transform/pos",n2d->get_pos(),existing);
@@ -2879,9 +2876,8 @@ void CanvasItemEditor::_popup_callback(int p_op) {
 					continue;
 
 
-				if (Object::cast_to<Node2D>(canvas_item)) {
+				if (Node2D *n2d = Object::cast_to<Node2D>(canvas_item)) {
 
-					Node2D *n2d = Object::cast_to<Node2D>(canvas_item);
 					PoseClipboard pc;
 					pc.pos=n2d->get_pos();
 					pc.rot=n2d->get_rot();
@@ -2930,8 +2926,7 @@ void CanvasItemEditor::_popup_callback(int p_op) {
 				if (canvas_item->get_viewport()!=EditorNode::get_singleton()->get_scene_root())
 					continue;
 
-				if (Object::cast_to<Node2D>(canvas_item)) {
-					Node2D *n2d = Object::cast_to<Node2D>(canvas_item);
+				if (Node2D *n2d = Object::cast_to<Node2D>(canvas_item)) {
 
 					if (key_pos)
 						n2d->set_pos(Vector2());

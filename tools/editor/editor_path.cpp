@@ -83,7 +83,7 @@ void EditorPath::_notification(int p_what) {
 					} else if (Object::cast_to<Node>(obj)) {
 
 						name=Object::cast_to<Node>(obj)->get_name();
-					} else if (Object::cast_to<Resource>(obj) && cast_to<Resource>(obj)->get_name()!="") {
+					} else if (Object::cast_to<Resource>(obj) && Object::cast_to<Resource>(obj)->get_name()!="") {
 						name=Object::cast_to<Resource>(obj)->get_name();
 					} else {
 						name=obj->get_type();

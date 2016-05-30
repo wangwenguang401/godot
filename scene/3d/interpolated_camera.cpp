@@ -54,8 +54,7 @@ void InterpolatedCamera::_notification(int p_what) {
 				local_transform = local_transform.interpolate_with(target_xform,delta);
 				set_global_transform(local_transform);
 
-				if (Object::cast_to<Camera>(node)) {
-					Camera *cam = Object::cast_to<Camera>(node);
+				if (Camera *cam = Object::cast_to<Camera>(node)) {
 					if (cam->get_projection()==get_projection())  {
 
 						float new_near = Math::lerp(get_znear(),cam->get_znear(),delta);
