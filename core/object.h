@@ -498,12 +498,9 @@ public:
 #ifndef NO_SAFE_CAST
 		return SAFE_CAST<T*>(ptr);
 #else
-		if (!ptr)
-			return NULL;
-		if (ptr->is_type_ptr(T::get_type_ptr_static()))
-			return static_cast<T*>(ptr);
-		else
-			return NULL;
+		if (ptr && ptr->is_type_ptr(T::get_type_ptr_static()))
+			return reinterpret_cast<T *>(ptr);
+		return NULL;
 #endif
 	}
 
@@ -513,12 +510,9 @@ public:
 #ifndef NO_SAFE_CAST
 		return SAFE_CAST<const T*>(ptr);
 #else
-		if (!ptr)
-			return NULL;
-		if (ptr->is_type_ptr(T::get_type_ptr_static()))
-			return static_cast<const T*>(ptr);
-		else
-			return NULL;
+		if (ptr && ptr->is_type_ptr(T::get_type_ptr_static()))
+			return reinterpret_cast<const T *>(ptr);
+		return NULL;
 #endif
 	}
 
