@@ -1531,6 +1531,11 @@ bool Main::force_redraw_requested = false;
 static uint64_t fixed_process_max=0;
 static uint64_t idle_process_max=0;
 
+//for better display/physics synchronization
+static uint64_t iteration_counter = 0;
+static double steps_sum = 0.0;
+
+//#define DEBUG_BETTER_SYNC
 
 bool Main::iteration() {
 
@@ -1551,8 +1556,8 @@ bool Main::iteration() {
 
 	last_ticks=ticks;
 
-	if (step>frame_slice*8)
-		step=frame_slice*8;
+	//if (step>frame_slice*8)
+	//	step=frame_slice*8;
 
 	time_accum+=step;
 
@@ -1564,7 +1569,34 @@ bool Main::iteration() {
 
 	OS::get_singleton()->_in_fixed=true;
 
-	while(time_accum>frame_slice) {
+	bool force_iteration = false;
+	if (time_accum < frame_slice) {
+
+		if (iteration_counter > 0 && steps_sum > 0.0) {
+
+			const double fps_diff = (iteration_counter / steps_sum) - (1.0 / frame_slice);
+			if (fps_diff > -0.5 && fps_diff < 0.5) {
+
+				// If the FPS difference beetween average framerate and physics is
+				// very small - it means that we are *NOT* out of sync, so let the
+				// frame render.
+				time_accum = frame_slice;
+				force_iteration = true;
+			}
+
+#ifdef DEBUG_BETTER_SYNC
+			print_line("fps_diff: " + rtos(fps_diff) + "; time_accum: " + rtos(time_accum) + "; " + (time_accum == frame_slice ? "DON'T SKIP" : "SKIP"));
+#endif
+		}
+
+		// Reset variables
+		iteration_counter = 0;
+		steps_sum = 0.0;
+	}
+	++iteration_counter;
+	steps_sum += step;
+
+	while (time_accum > frame_slice || force_iteration) {
 
 		uint64_t fixed_begin = OS::get_singleton()->get_ticks_usec();
 
@@ -1593,9 +1625,15 @@ bool Main::iteration() {
 
 		fixed_process_ticks=MAX(fixed_process_ticks,OS::get_singleton()->get_ticks_usec()-fixed_begin); // keep the largest one for reference
 		fixed_process_max=MAX(OS::get_singleton()->get_ticks_usec()-fixed_begin,fixed_process_max);
+		force_iteration = false;
 		iters++;
 		OS::get_singleton()->_fixed_frames++;
 	}
+
+#ifdef DEBUG_BETTER_SYNC
+	if (iters > 1)
+		print_line("ITERS: " + itos(iters));
+#endif
 
 	OS::get_singleton()->_in_fixed=false;
 
